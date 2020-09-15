@@ -1,1 +1,22 @@
-<p>notes-add works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <div class="form-group">
+        <label for="title"></label>
+        <input id="title" class="form-control" style="background-color: #fffacd" type="text" placeholder="Enter title"
+          autocomplete="off" #title>
+        <label for="text"></label>
+        <textarea id="text" class="form-control" style="background-color: #fffacd" cols="30" rows="10"
+          placeholder="Your note goes here" #text></textarea>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="important" #important (click)="isImportant = !isImportant">
+        <label for="important" class="form-check-label">Important
+          note</label>
+      </div>
+      <button class="btn btn-success"
+        (click)="addNote(title.value, text.value); title.value = ''; text.value = ''; important.checked = false">Add
+        note</button>
+    </div>
+  </div>
+</div>

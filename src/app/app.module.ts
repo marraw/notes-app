@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { NotesListComponent } from './notes-list/notes-list.component';
 import { NotesAddComponent } from './notes-add/notes-add.component';
-import { NoteComponent } from './notes-list/note/note.component';
-import { NgbCollapse } from './ngbCollapse.directive'
+import { NoteDetailsComponent } from './notes-list/note-details/note-details.component';
+import { NgbCollapse } from './shared/ngbCollapse.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { NgbCollapse } from './ngbCollapse.directive'
     HeaderComponent,
     NotesListComponent,
     NotesAddComponent,
-    NoteComponent,
+    NoteDetailsComponent,
     NgbCollapse
   ],
   imports: [
