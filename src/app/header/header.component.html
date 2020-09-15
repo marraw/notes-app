@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container fluid">
+    <a href="#" class="navbar-brand mb-0 h1">Notes app</a>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]="isCollapsed">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="notes-list" routerLinkActive="active">Notes list</a>
+        <a class="nav-item nav-link" routerLink="add-note" routerLinkActive="active">Add note</a>
+      </div>
+    </div>
+  </div>
+</nav>
