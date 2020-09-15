@@ -15,5 +15,4 @@ export class NoteDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.notes = this.notesService.getNotes();
   }
-
 }

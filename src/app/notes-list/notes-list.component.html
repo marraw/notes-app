@@ -2,7 +2,13 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6">
       <ul class="list-group">
-        <app-note-details></app-note-details>
+        <div *ngIf="notes.length > 0; then list else empty"></div>
+        <ng-template #list>
+          <app-note-details></app-note-details>
+        </ng-template>
+        <ng-template #empty>
+          <h3>The note list is empty</h3>
+        </ng-template>
       </ul>
     </div>
     <div class="col-xs-12 col-sm-6">

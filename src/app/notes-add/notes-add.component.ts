@@ -8,14 +8,14 @@ import { NotesService } from '../shared/notes.service';
   styleUrls: ['./notes-add.component.css']
 })
 export class NotesAddComponent implements OnInit {
-  isImportant = false;
+  isImportant: boolean = false;
 
   constructor(private notesService: NotesService) { }
 
   ngOnInit(): void {
   }
 
-  addNote(title: string, text: string) {
+  addNote(title: string, text: string): void {
     const note = new Note(title, text, this.isImportant);
     this.notesService.notes.push(note);
   }
