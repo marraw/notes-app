@@ -8,6 +8,7 @@ import { NotesListComponent } from './notes-list/notes-list.component';
 import { NotesAddComponent } from './notes-add/notes-add.component';
 import { NoteDetailsComponent } from './notes-list/note-details/note-details.component';
 import { NgbCollapse } from './shared/ngbCollapse.directive';
+import { NoteEditComponent } from './notes-list/note-edit/note-edit.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NgbCollapse } from './shared/ngbCollapse.directive';
     NotesListComponent,
     NotesAddComponent,
     NoteDetailsComponent,
-    NgbCollapse
+    NgbCollapse,
+    NoteEditComponent
   ],
   imports: [
     BrowserModule,

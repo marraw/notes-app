@@ -11,8 +11,7 @@
       </div>
       <div class="form-check">
         <input type="checkbox" class="form-check-input" id="important" #important (click)="isImportant = !isImportant">
-        <label for="important" class="form-check-label">Important
-          note</label>
+        <label for="important" class="form-check-label">Important note</label>
       </div>
       <button class="btn btn-success"
         (click)="addNote(title.value, text.value); title.value = ''; text.value = ''; important.checked = false">Add

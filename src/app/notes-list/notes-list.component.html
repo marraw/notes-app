@@ -2,17 +2,24 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6">
       <ul class="list-group">
-        <div *ngIf="notes.length > 0; then list else empty"></div>
-        <ng-template #list>
-          <app-note-details></app-note-details>
-        </ng-template>
+        <div *ngIf="notes.length > 0; else empty">
+          <app-note-details *ngFor="let note of notes; let i = index" [index]="i" (click)="editMode = true">
+          </app-note-details>
+        </div>
         <ng-template #empty>
-          <h3>The note list is empty</h3>
+          <h5><em>Note list is empty</em></h5>
         </ng-template>
       </ul>
     </div>
     <div class="col-xs-12 col-sm-6">
       <h3>Note details</h3>
+      <hr>
+      <div *ngIf="editMode; else select">
+        <router-outlet></router-outlet>
+      </div>
+      <ng-template #select>
+        <h5><em>Select a note to edit</em></h5>
+      </ng-template>
     </div>
   </div>
 </div>

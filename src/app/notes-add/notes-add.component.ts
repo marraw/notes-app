@@ -9,6 +9,7 @@ import { NotesService } from '../shared/notes.service';
 })
 export class NotesAddComponent implements OnInit {
   isImportant: boolean = false;
+  id: number = 0;
 
   constructor(private notesService: NotesService) { }
 
@@ -16,7 +17,9 @@ export class NotesAddComponent implements OnInit {
   }
 
   addNote(title: string, text: string): void {
-    const note = new Note(title, text, this.isImportant);
+    const note = new Note(title, text, this.id, this.isImportant);
     this.notesService.notes.push(note);
+    this.id++;
+    console.log(this.notesService.notes);
   }
 }

@@ -1,4 +1,4 @@
-<li class="list-group-item" style="background-color: #fffacd; cursor: pointer;" *ngFor="let note of notes">
+<li class="list-group-item" style="background-color: #fffacd; cursor: pointer;" [routerLink]="[index]">
   <h4>{{note.title}}</h4>
   <div>{{note.text}}</div>
   <span class="badge badge-warning badge-pill" *ngIf="note.important">Important</span>

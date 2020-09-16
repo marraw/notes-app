@@ -8,4 +8,8 @@ export class NotesService {
   getNotes(): Note[] {
     return this.notes;
   }
+
+  getNote(id: number): Note {
+    return this.notes[id];
+  }
 }

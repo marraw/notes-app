@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Note } from '../../shared/note';
 import { NotesService } from '../../shared/notes.service';
 
@@ -8,11 +8,12 @@ import { NotesService } from '../../shared/notes.service';
   styleUrls: ['./note-details.component.css']
 })
 export class NoteDetailsComponent implements OnInit {
-  notes: Note[] = [];
+  note: Note;
+  @Input() index: number;
 
   constructor(private notesService: NotesService) { }
 
   ngOnInit(): void {
-    this.notes = this.notesService.getNotes();
+    this.note = this.notesService.getNote(this.index);
   }
 }
