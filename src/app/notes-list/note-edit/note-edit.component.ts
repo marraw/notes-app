@@ -9,7 +9,7 @@ import { NotesService } from 'src/app/shared/notes.service';
   styleUrls: ['./note-edit.component.css']
 })
 export class NoteEditComponent implements OnInit {
-  note: Note | undefined;
+  note!: Note;
   id: number = 0;
   editMode: boolean = false;
 
@@ -19,12 +19,16 @@ export class NoteEditComponent implements OnInit {
     this.notesService.notes.forEach((note, index) => {
       this.id = index;
       note.id = this.id;
-    })
+    }) // Missing semicolon (semicolon)tslint(1)
+    /*
+      Pamiętaj, aby robić unsubscribe'y w ngOnDestroy, może to prowadzić do poważnych data leaków i np wysadzenia przeglądarki usera.
+      https://stackoverflow.com/questions/38008334/angular-rxjs-when-should-i-unsubscribe-from-subscription
+    */
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
         this.note = this.notesService.getNote(this.id);
-      })
+      }) // Missing semicolon (semicolon)tslint(1)
   }
 
   removeNote(): void {
