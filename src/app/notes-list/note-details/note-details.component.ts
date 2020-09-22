@@ -8,8 +8,8 @@ import { NotesService } from '../../shared/notes.service';
   styleUrls: ['./note-details.component.css']
 })
 export class NoteDetailsComponent implements OnInit {
-  note: Note;
-  @Input() index: number;
+  note: Note | undefined;
+  @Input() index: number = 0;
 
   constructor(private notesService: NotesService) { }
 

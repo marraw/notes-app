@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Note } from 'src/app/shared/note';
 import { NotesService } from 'src/app/shared/notes.service';
 
@@ -9,18 +9,26 @@ import { NotesService } from 'src/app/shared/notes.service';
   styleUrls: ['./note-edit.component.css']
 })
 export class NoteEditComponent implements OnInit {
-  note: Note;
-  id: number;
+  note: Note | undefined;
+  id: number = 0;
+  editMode: boolean = false;
 
-  constructor(private notesService: NotesService, private route: ActivatedRoute) { }
+  constructor(private notesService: NotesService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.note = this.notesService.getNote(this.id);
+    this.notesService.notes.forEach((note, index) => {
+      this.id = index;
+      note.id = this.id;
+    })
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
         this.note = this.notesService.getNote(this.id);
-      }
-    )
+      })
+  }
+
+  removeNote(): void {
+    this.notesService.notes.splice(this.id, 1);
+    this.router.navigate(['notes-list']);
   }
 }

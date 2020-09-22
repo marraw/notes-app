@@ -1,4 +1,5 @@
-<li class="list-group-item" style="background-color: #fffacd; cursor: pointer;" [routerLink]="[index]">
+<li class="list-group-item" style="background-color: #fffacd; cursor: pointer;" [routerLink]="[index]"
+  routerLinkActive="activeNote">
   <h4>{{note.title}}</h4>
   <div>{{note.text}}</div>
   <span class="badge badge-warning badge-pill" *ngIf="note.important">Important</span>

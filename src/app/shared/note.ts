@@ -1,3 +1,3 @@
 export class Note {
-  constructor(public title: string, public text: string, public id: number, public important?: boolean) { }
+  constructor(public title: string, public text: string, public important: boolean, public id: number | undefined) { }
 }

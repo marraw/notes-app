@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotesAddComponent } from './notes-add/notes-add.component';
 import { NoteEditComponent } from './notes-list/note-edit/note-edit.component';
 import { NotesListComponent } from './notes-list/notes-list.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'notes-list', pathMatch: 'full' },
@@ -11,7 +12,8 @@ const routes: Routes = [
       { path: ':id', component: NoteEditComponent }
     ]
   },
-  { path: 'add-note', component: NotesAddComponent }
+  { path: 'add-note', component: NotesAddComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

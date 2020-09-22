@@ -5,8 +5,9 @@ import { Note } from "./note"
 export class NotesService {
   notes: Note[] = [];
 
-  getNotes(): Note[] {
-    return this.notes;
+  addNote(title: string, text: string, isImportant: boolean): void {
+    const note = new Note(title, text, isImportant, undefined);
+    this.notes.push(note);
   }
 
   getNote(id: number): Note {

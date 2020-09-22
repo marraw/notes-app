@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-xs-12 col-sm-6 notes">
       <ul class="list-group">
         <div *ngIf="notes.length > 0; else empty">
-          <app-note-details *ngFor="let note of notes; let i = index" [index]="i" (click)="editMode = true">
+          <app-note-details *ngFor="let note of notes; let i = index" [index]="i" (click)="showDetails = true">
           </app-note-details>
         </div>
         <ng-template #empty>
@@ -14,7 +14,7 @@
     <div class="col-xs-12 col-sm-6">
       <h3>Note details</h3>
       <hr>
-      <div *ngIf="editMode; else select">
+      <div *ngIf="showDetails; else select">
         <router-outlet></router-outlet>
       </div>
       <ng-template #select>

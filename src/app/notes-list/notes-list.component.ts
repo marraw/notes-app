@@ -9,13 +9,12 @@ import { NotesService } from '../shared/notes.service';
 })
 export class NotesListComponent implements OnInit {
   notes: Note[] = [];
-  editMode: boolean;
+  showDetails: boolean = false;
 
   constructor(private notesService: NotesService) {
   }
 
   ngOnInit(): void {
-    this.notes = this.notesService.getNotes();
-    this.editMode = false;
+    this.notes = this.notesService.notes;
   }
 }
