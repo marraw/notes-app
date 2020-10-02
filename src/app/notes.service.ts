@@ -1,8 +1,5 @@
-/*
-Staraj się być konsekwentny w kodzie i jeśli Twój linter lub formater uzywa '', używaj tego w całym projekcie.
-*/
 import { Injectable } from '@angular/core';
-import { Note } from "./note" // " should be ' (quotemark)tslint(1)
+import { Note } from './note'
 
 @Injectable({ providedIn: 'root' })
 export class NotesService {

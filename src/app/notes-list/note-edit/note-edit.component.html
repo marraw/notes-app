@@ -10,7 +10,6 @@
     <label for="important" class="form-check-label">Important note</label>
   </div>
 </div>
-<button class="btn btn-secondary" (click)="editMode = !editMode; note.text = text.value">
-  <div [ngSwitch]="editMode"><span *ngSwitchCase="false">Edit</span><span *ngSwitchCase="true">Save</span></div>
-</button>
+<button class="btn btn-secondary"
+  (click)="editMode = !editMode; note.text = text.value">{{ editMode ? 'Save' : 'Edit' }}</button>
 <button class="btn btn-danger" (click)="removeNote()">Remove</button>

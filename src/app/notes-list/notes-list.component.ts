@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Note } from '../shared/note';
-import { NotesService } from '../shared/notes.service';
+import { Note } from '../note';
+import { NotesService } from '../notes.service';
 
 @Component({
   selector: 'app-notes-list',
