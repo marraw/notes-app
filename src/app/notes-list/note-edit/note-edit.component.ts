@@ -18,23 +18,33 @@ export class NoteEditComponent implements OnInit, OnDestroy {
   constructor(private notesService: NotesService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.notesService.notes.forEach((note, index) => {
-      this.id = index;
-      note.id = this.id;
-    });
     this.subParams = this.route.params.subscribe(
       (params: Params) => {
+        this.updateTime();
+        this.editMode = false;
         this.id = +params['id'];
         this.note = this.notesService.getNote(this.id);
       });
   }
 
-  ngOnDestroy(): void {
-    this.subParams.unsubscribe();
+  editNote(): void {
+    this.updateTime();
+    this.editMode = !this.editMode;
+  }
+
+  updateTime(): void {
+    if (this.editMode) {
+      this.note.time = this.notesService.date.time;
+      this.note.date = this.notesService.date.date;
+    }
   }
 
   removeNote(): void {
-    this.notesService.notes.splice(this.id, 1);
+    this.notesService.removeNote(this.id);
     this.router.navigate(['notes-list']);
+  }
+
+  ngOnDestroy(): void {
+    this.subParams.unsubscribe();
   }
 }

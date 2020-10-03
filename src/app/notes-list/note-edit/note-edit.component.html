@@ -1,15 +1,27 @@
-<h5>{{note.title}} <span class="badge badge-warning badge-pill" *ngIf="note.important">Important</span>
-</h5>
-<div class="card">
-  <textarea [disabled]="!editMode" style="background-color: #fffacd" cols="40" rows="15" #text>{{note.text}}</textarea>
-</div>
 <div class="form-group">
-  <div class="form-check check">
-    <input type="checkbox" class="form-check-input" id="important" #important [checked]="note.important"
-      (change)="note.important = !note.important">
-    <label for="important" class="form-check-label">Important note</label>
-  </div>
+  <h5>{{note.title}} <span class="badge badge-warning badge-pill" *ngIf="note.important">Important</span>
+  </h5>
 </div>
-<button class="btn btn-secondary"
-  (click)="editMode = !editMode; note.text = text.value">{{ editMode ? 'Save' : 'Edit' }}</button>
-<button class="btn btn-danger" (click)="removeNote()">Remove</button>
+
+<form (ngSubmit)="editNote()" #editForm="ngForm">
+  <div class="form-group">
+    <div class="card">
+      <textarea [disabled]="!editMode" style="background-color: #fffacd" cols="40" rows="15" name="text" #text="ngModel"
+        required [(ngModel)]="note.text"></textarea>
+    </div>
+    <span class="help-block" *ngIf="!text.valid && !text.disabled">You can't leave an empty note!</span>
+  </div>
+
+  <p>Latest update: <em>{{note.time}}</em> | <em>{{note.date}}</em></p>
+
+  <div class="form-group">
+    <div class="form-check check">
+      <input type="checkbox" class="form-check-input" id="important" name="important" [(ngModel)]="note.important">
+      <label for="important" class="form-check-label">Important note</label>
+    </div>
+  </div>
+
+  <button [disabled]="!text.valid && !text.disabled" class="btn btn-secondary"
+    type="submit">{{ editMode ? 'Save' : 'Edit' }}</button>
+  <button class="btn btn-danger" type="button" (click)="removeNote()">Remove</button>
+</form>

@@ -1,22 +1,28 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-6">
-      <div class="form-group">
-        <label for="title"></label>
-        <input id="title" class="form-control" style="background-color: #fffacd" type="text" placeholder="Enter title"
-          autocomplete="off" #title>
-        <label for="text"></label>
-        <textarea id="text" class="form-control" style="background-color: #fffacd" cols="30" rows="10"
-          placeholder="Your note goes here" #text></textarea>
-      </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="important" #important [checked]="isImportant"
-          (click)="isImportant = !isImportant">
-        <label for="important" class="form-check-label">Important note</label>
-      </div>
-      <button class="btn btn-success"
-        (click)="newNote(title.value, text.value); title.value = ''; text.value = ''; isImportant = false;">
-        Add note</button>
+    <div class="col-xs-12 col-sm-8">
+      <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input id="title" class="form-control" style="background-color: #fffacd" type="text" placeholder="Enter title"
+            autocomplete="off" formControlName="title">
+          <span class="help-block" *ngIf="!noteForm.get('title')!.valid && noteForm.get('title')!.touched">
+            Enter a title!</span>
+        </div>
+
+        <div class="form-group">
+          <textarea id="text" class="form-control" style="background-color: #fffacd" cols="30" rows="10"
+            placeholder="Your note goes here..." formControlName="text"></textarea>
+          <span class="help-block" *ngIf="!noteForm.get('text')!.valid && noteForm.get('text')!.touched">You can't add
+            an empty note!</span>
+        </div>
+
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="important" formControlName="important">
+          <label for="important" class="form-check-label">Important note</label>
+        </div>
+
+        <button type="submit" [disabled]="!noteForm.valid" class="btn btn-success">Add note</button>
+      </form>
     </div>
   </div>
 </div>
