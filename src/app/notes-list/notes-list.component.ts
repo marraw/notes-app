@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Note } from '../note';
 import { NotesService } from '../notes.service';
@@ -10,10 +11,10 @@ import { NotesService } from '../notes.service';
 })
 export class NotesListComponent implements OnInit, OnDestroy {
   notes: Note[] = [];
-  showDetails: boolean = false;
+  editMode: boolean = false;
   private updateList!: Subscription;
 
-  constructor(private notesService: NotesService) {
+  constructor(private notesService: NotesService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -22,6 +23,10 @@ export class NotesListComponent implements OnInit, OnDestroy {
         this.notes = notes;
       });
     this.notes = this.notesService.notes;
+  }
+
+  navigateToAddNote(): void {
+    this.router.navigate(['add-note']);
   }
 
   ngOnDestroy(): void {

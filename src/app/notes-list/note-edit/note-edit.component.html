@@ -1,18 +1,17 @@
-<div class="form-group">
-  <h5>{{note.title}} <span class="badge badge-warning badge-pill" *ngIf="note.important">Important</span>
-  </h5>
-</div>
-
 <form (ngSubmit)="editNote()" #editForm="ngForm">
+  <div class="form-group">
+    <h4>{{note.title}}</h4><span class="badge badge-warning badge-pill" *ngIf="note.important">Important</span>
+  </div>
+
   <div class="form-group">
     <div class="card">
       <textarea [disabled]="!editMode" style="background-color: #fffacd" cols="40" rows="15" name="text" #text="ngModel"
         required [(ngModel)]="note.text"></textarea>
     </div>
-    <span class="help-block" *ngIf="!text.valid && !text.disabled">You can't leave an empty note!</span>
+    <span class="help-block" *ngIf="!text.valid && !text.disabled">You cannot leave an empty note!</span>
   </div>
 
-  <p>Latest update: <em>{{note.time}}</em> | <em>{{note.date}}</em></p>
+  <span>Latest update: <em>{{note.time}}</em> | <em>{{note.date}}</em></span>
 
   <div class="form-group">
     <div class="form-check check">
@@ -21,7 +20,7 @@
     </div>
   </div>
 
-  <button [disabled]="!text.valid && !text.disabled" class="btn btn-secondary"
+  <button [disabled]="!text.valid && !text.disabled" [ngClass]="editMode ? 'btn btn-success' : 'btn btn-secondary'"
     type="submit">{{ editMode ? 'Save' : 'Edit' }}</button>
   <button class="btn btn-danger" type="button" (click)="removeNote()">Remove</button>
 </form>

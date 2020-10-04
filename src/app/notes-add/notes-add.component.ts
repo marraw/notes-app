@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotesService } from '../notes.service';
 
@@ -10,8 +10,9 @@ import { NotesService } from '../notes.service';
 export class NotesAddComponent implements OnInit {
   isImportant: boolean = false;
   noteForm!: FormGroup;
+  @ViewChild('noteAdded', { static: false }) noteAdded!: ElementRef;
 
-  constructor(private notesService: NotesService) { }
+  constructor(private notesService: NotesService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.noteForm = new FormGroup({
@@ -23,6 +24,10 @@ export class NotesAddComponent implements OnInit {
 
   onSubmit(): void {
     this.notesService.addNote(this.noteForm.value, this.notesService.date);
+    this.renderer.setStyle(this.noteAdded.nativeElement, 'visibility', 'visible');
+    setTimeout(() => {
+      this.renderer.setStyle(this.noteAdded.nativeElement, 'visibility', 'hidden');
+    }, 1500)
     this.noteForm.reset();
   }
 }

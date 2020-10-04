@@ -1,24 +1,27 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-6 notes">
-      <ul class="list-group">
-        <div *ngIf="notes.length > 0; else empty">
-          <app-note-details *ngFor="let note of notes; let i = index" [index]="i" (click)="showDetails = true">
+    <div class="col-xs-12 col-sm-6">
+      <div *ngIf="notes.length > 0; else emptyList">
+        <ul class="list-group">
+          <app-note-details *ngFor="let note of notes; let i = index" [id]="i" (click)="editMode = true">
           </app-note-details>
-        </div>
-        <ng-template #empty>
-          <h5><em>Note list is empty</em></h5>
-        </ng-template>
-      </ul>
+        </ul>
+      </div>
+      <ng-template #emptyList>
+        <h6><em>Note list is empty</em></h6>
+        <hr>
+        <button class="btn btn-success" (click)="navigateToAddNote()">Add note</button>
+      </ng-template>
     </div>
+
     <div class="col-xs-12 col-sm-6">
       <h3>Note details</h3>
       <hr>
-      <div *ngIf="showDetails; else select">
-        <router-outlet></router-outlet>
+      <div *ngIf="editMode; else selectNote">
+        <router-outlet (deactivate)="editMode = false"></router-outlet>
       </div>
-      <ng-template #select>
-        <h5><em>Select a note to edit</em></h5>
+      <ng-template #selectNote>
+        <h6><em>Select a note to edit</em></h6>
       </ng-template>
     </div>
   </div>

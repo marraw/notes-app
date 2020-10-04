@@ -9,7 +9,7 @@ export class NotesService {
 
   get date(): { time: string, date: string } {
     const date = new Date();
-    return { time: date.toLocaleTimeString(), date: date.toLocaleDateString() }
+    return { time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), date: date.toLocaleDateString() }
   }
 
   addNote(formValue: { title: string; text: string; important: boolean; },
@@ -18,7 +18,6 @@ export class NotesService {
       new Note(formValue.title,
         formValue.text,
         formValue.important,
-        undefined,
         date.time,
         date.date)
     );
