@@ -4,7 +4,7 @@
       <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
 
         <div class="form-group">
-          <input id="title" class="form-control note-paper" type="text" placeholder="Enter title" autocomplete="off"
+          <input id="title" class="form-control note-paper" type="text" placeholder="Enter a title" autocomplete="off"
             formControlName="title">
 
           <span *ngIf="!noteForm.get('title')?.valid && noteForm.get('title')?.touched">

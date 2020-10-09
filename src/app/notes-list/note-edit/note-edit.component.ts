@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Note } from 'src/app/note';
+import { Note } from 'src/app/note.model';
 import { NotesService } from 'src/app/notes.service';
 
 @Component({

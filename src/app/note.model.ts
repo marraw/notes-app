@@ -1,5 +1,6 @@
 export class Note {
-  constructor(public title: string,
+  constructor(
+    public title: string,
     public text: string,
     public important: boolean,
     public time: string,
