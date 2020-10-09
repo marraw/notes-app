@@ -2,6 +2,10 @@ button {
   margin-right: 10px;
 }
 
+h4 {
+  overflow-wrap: break-word;
+}
+
 .check {
   margin-top: 10px;
 }

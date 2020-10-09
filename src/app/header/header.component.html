@@ -1,14 +1,23 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
   <div class="container fluid">
-    <a routerLink="" class="navbar-brand mb-0 h1">Notes app</a>
+
+    <a routerLink="" class="navbar-brand mb-0 h1" (click)="isCollapsed = true">Notes app</a>
     <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]="isCollapsed">
       <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="notes-list" routerLinkActive="active">Note list</a>
-        <a class="nav-item nav-link" routerLink="add-note" routerLinkActive="active">Add note</a>
+        <li class="nav-item">
+          <a class="nav-item nav-link" routerLink="notes-list" routerLinkActive="active"
+            (click)="isCollapsed = true">Note list</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item nav-link" routerLink="add-note" routerLinkActive="active" (click)="isCollapsed = true">Add
+            note</a>
+        </li>
       </div>
+
     </div>
   </div>
 </nav>

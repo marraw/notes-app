@@ -16,7 +16,7 @@ export class NotesAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.noteForm = new FormGroup({
-      'title': new FormControl(null, Validators.required),
+      'title': new FormControl(null, [Validators.required, Validators.maxLength(50)]),
       'text': new FormControl(null, Validators.required),
       'important': new FormControl(this.isImportant)
     });
@@ -27,7 +27,7 @@ export class NotesAddComponent implements OnInit {
     this.renderer.setStyle(this.noteAdded.nativeElement, 'visibility', 'visible');
     setTimeout(() => {
       this.renderer.setStyle(this.noteAdded.nativeElement, 'visibility', 'hidden');
-    }, 1500)
+    }, 2000)
     this.noteForm.reset();
   }
 }

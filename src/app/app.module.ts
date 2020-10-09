@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { NgbCollapse } from './shared/ngbCollapse.directive';
+import { ShortenPipe } from './shared/shorten.pipe';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HeaderComponent } from './header/header.component';
 import { NotesListComponent } from './notes-list/notes-list.component';
@@ -16,6 +17,7 @@ import { NoteEditComponent } from './notes-list/note-edit/note-edit.component';
   declarations: [
     AppComponent,
     NgbCollapse,
+    ShortenPipe,
     PageNotFoundComponent,
     HeaderComponent,
     NotesListComponent,
