@@ -1,17 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-6">
-      <div *ngIf="notes.length > 0; else emptyList">
-        <ul class="list-group">
-          <app-note-details *ngFor="let note of notes; let i = index" [id]="i">
-          </app-note-details>
-        </ul>
-      </div>
-      <ng-template #emptyList>
+      <!-- <div class="col-sm-10"> -->
+      <loading-spinner *ngIf="isFetching"></loading-spinner>
+      <!-- </div> -->
+      <ul class="list-group">
+        <app-note-details *ngFor="let note of notes; let i = index" [id]="i"></app-note-details>
+      </ul>
+      <div *ngIf="notes.length === 0 && !isFetching">
         <h6><em>Note list is empty</em></h6>
         <hr>
         <button class="btn btn-success" routerLink="../add-note">Add note</button>
-      </ng-template>
+      </div>
     </div>
 
     <div class="col-xs-12 col-sm-6" *ngIf="notes.length > 0">

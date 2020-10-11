@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
+import { ActivatedRoute, Event, NavigationStart, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Note } from 'src/app/note.model';
 import { NotesService } from 'src/app/notes.service';
@@ -38,14 +38,13 @@ export class NoteEditComponent implements OnInit, OnDestroy {
       (params: Params) => {
         this.onUpdateTime();
         this.editMode = false;
-        params = { id: this.id };
+        this.id = params.id;
         this.note = this.notesService.getNote(this.id);
       });
   }
 
   onEditNote(): void {
     this.onUpdateTime();
-    this.notesService.editNote(this.id, this.note);
     this.editMode = !this.editMode;
     this.dataStorageService.storeNotesOnBE().subscribe();
   }
