@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6">
       <!-- <div class="col-sm-10"> -->
-      <loading-spinner *ngIf="isFetching"></loading-spinner>
+      <app-loading-spinner *ngIf="isFetching"></app-loading-spinner>
       <!-- </div> -->
       <ul class="list-group">
         <app-note-details *ngFor="let note of notes; let i = index" [id]="i"></app-note-details>

@@ -1,7 +1,7 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'loading-spinner',
+  selector: 'app-loading-spinner',
   template: '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>',
   styles: [`
   .lds-ring {
@@ -41,6 +41,6 @@ import { Component } from "@angular/core";
   }
   `]
 })
-export class LoadingSpinner {
+export class LoadingSpinnerComponent {
 
 }
