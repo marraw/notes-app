@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Note } from 'src/app/note.model';
 import { NotesService } from 'src/app/notes.service';
+import { DataStorageService } from '../../data-storage.service';
 
 @Component({
   selector: 'app-note-edit',
@@ -11,40 +12,60 @@ import { NotesService } from 'src/app/notes.service';
 })
 export class NoteEditComponent implements OnInit, OnDestroy {
   note!: Note;
-  id: number = 0;
-  editMode: boolean = false;
-  private subParams!: Subscription;
+  id = 0;
+  editMode = false;
+  private subID!: Subscription;
+  private subNav!: Subscription;
 
-  constructor(private notesService: NotesService, private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private notesService: NotesService,
+    private dataStorageService: DataStorageService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.subNav = this.router.events.subscribe(
+      (event: Event) => {
+        if (event instanceof NavigationStart) {
+          this.onEditNote();
+          this.editMode = false;
+        }
+      });
+  }
 
   ngOnInit(): void {
-    this.subParams = this.route.params.subscribe(
+    this.editMode = false;
+    this.subID = this.route.params.subscribe(
       (params: Params) => {
-        this.updateTime();
+        this.onUpdateTime();
         this.editMode = false;
-        this.id = +params['id'];
+        params = { id: this.id };
         this.note = this.notesService.getNote(this.id);
       });
   }
 
-  editNote(): void {
-    this.updateTime();
+  onEditNote(): void {
+    this.onUpdateTime();
+    this.notesService.editNote(this.id, this.note);
     this.editMode = !this.editMode;
+    this.dataStorageService.storeNotesOnBE().subscribe();
   }
 
-  updateTime(): void {
+  onUpdateTime(): void {
     if (this.editMode) {
       this.note.time = this.notesService.date.time;
       this.note.date = this.notesService.date.date;
     }
   }
 
-  removeNote(): void {
+  onRemoveNote(): void {
     this.notesService.removeNote(this.id);
+    this.dataStorageService.storeNotesOnBE().subscribe();
     this.router.navigate(['notes-list']);
   }
 
   ngOnDestroy(): void {
-    this.subParams.unsubscribe();
+    this.subID.unsubscribe();
+    this.subNav.unsubscribe();
   }
+
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Event, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   isCollapsed = true;
 
-  constructor() { }
+  constructor(private router: Router) {
+    this.router.events.subscribe(
+      (event: Event) => {
+        if (event instanceof NavigationStart) {
+          this.isCollapsed = true;
+        }
+      });
+  }
 
   ngOnInit(): void {
   }

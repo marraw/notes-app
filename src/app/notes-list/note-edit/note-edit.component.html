@@ -1,4 +1,4 @@
-<form (ngSubmit)="editNote()" #editForm="ngForm">
+<form (ngSubmit)="onEditNote()" #editForm="ngForm">
   <div class="form-group">
     <h4>{{note.title}}</h4><span class="badge badge-warning badge-pill" *ngIf="note.important">Important</span>
   </div>
@@ -15,12 +15,13 @@
 
   <div class="form-group">
     <div class="form-check check">
-      <input type="checkbox" class="form-check-input" id="important" name="important" [(ngModel)]="note.important">
+      <input type="checkbox" class="form-check-input" id="important" name="important" [disabled]="!editMode"
+        [(ngModel)]="note.important">
       <label for="important" class="form-check-label">Important note</label>
     </div>
   </div>
 
   <button [disabled]="!text.valid && !text.disabled" [ngClass]="editMode ? 'btn btn-success' : 'btn btn-secondary'"
     type="submit">{{ editMode ? 'Save' : 'Edit' }}</button>
-  <button class="btn btn-danger" type="button" (click)="removeNote()">Remove</button>
+  <button class="btn btn-danger" type="button" (click)="onRemoveNote()">Remove</button>
 </form>

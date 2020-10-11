@@ -5,7 +5,7 @@ import { Directive, Input } from '@angular/core';
   exportAs: 'ngbCollapse',
   host: { '[class.collapse]': 'true', '[class.show]': '!collapsed' }
 })
-export class NgbCollapse {
-
+export class NgbCollapseDirective {
   @Input('ngbCollapse') collapsed = false;
+
 }

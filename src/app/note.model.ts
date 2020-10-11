@@ -1,4 +1,5 @@
 export class Note {
+
   constructor(
     public title: string,
     public text: string,
@@ -7,4 +8,5 @@ export class Note {
     public date: string,
     public id?: number
   ) { }
+
 }

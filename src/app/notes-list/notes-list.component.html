@@ -3,26 +3,23 @@
     <div class="col-xs-12 col-sm-6">
       <div *ngIf="notes.length > 0; else emptyList">
         <ul class="list-group">
-          <app-note-details *ngFor="let note of notes; let i = index" [id]="i" (click)="editMode = true">
+          <app-note-details *ngFor="let note of notes; let i = index" [id]="i">
           </app-note-details>
         </ul>
       </div>
       <ng-template #emptyList>
         <h6><em>Note list is empty</em></h6>
         <hr>
-        <button class="btn btn-success" (click)="navigateToAddNote()">Add note</button>
+        <button class="btn btn-success" routerLink="../add-note">Add note</button>
       </ng-template>
     </div>
 
     <div class="col-xs-12 col-sm-6" *ngIf="notes.length > 0">
       <h3>Note details</h3>
       <hr>
-      <div *ngIf="editMode; else selectNote">
-        <router-outlet (deactivate)="editMode = false"></router-outlet>
-      </div>
-      <ng-template #selectNote>
-        <h6><em>Select a note to edit</em></h6>
-      </ng-template>
+      <router-outlet (activate)="editMode = true">
+        <h6 *ngIf="editMode === false"><em>Select a note to edit</em></h6>
+      </router-outlet>
     </div>
   </div>
 </div>
