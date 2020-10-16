@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Event, NavigationStart, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -7,18 +6,11 @@ import { AuthService } from '../auth/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isCollapsed = true;
   isLoggedIn = false;
 
-  constructor(private router: Router, private authService: AuthService) {
-    this.router.events.subscribe(
-      (event: Event) => {
-        if (event instanceof NavigationStart) {
-          this.isCollapsed = true;
-        }
-      });
-  }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.user.subscribe(
@@ -34,6 +26,10 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.logOut();
+  }
+
+  ngOnDestroy(): void {
+    this.isCollapsed = true;
   }
 
 }

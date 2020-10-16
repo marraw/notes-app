@@ -15,6 +15,7 @@ export class NotesAddComponent implements OnInit, OnDestroy {
   noteForm!: FormGroup;
   @ViewChild('noteAdded', { static: false }) noteAdded!: ElementRef;
   private subAuth?: Subscription;
+  private subPutOnServer?: Subscription;
 
   constructor(
     private notesService: NotesService,
@@ -36,9 +37,8 @@ export class NotesAddComponent implements OnInit, OnDestroy {
     this.subAuth = this.authService.user.subscribe(
       user => {
         if (user?.token) {
-          this.dataStorageService.storeNotesOnServer().subscribe();
+          this.subPutOnServer = this.dataStorageService.storeNotesOnServer().subscribe();
         }
-        else return;
       });
     this.noteForm.reset({
       title: null,
@@ -53,6 +53,7 @@ export class NotesAddComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subAuth?.unsubscribe();
+    this.subPutOnServer?.unsubscribe();
   }
 
 }

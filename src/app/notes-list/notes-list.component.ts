@@ -15,8 +15,8 @@ export class NotesListComponent implements OnInit, OnDestroy {
   notes: Note[] = [];
   editMode = false;
   isLoading = true;
-  private updateList!: Subscription;
   private subAuth!: Subscription;
+  private subNotesUpdate!: Subscription;
   private subURL?: Subscription;
 
   constructor(
@@ -39,24 +39,33 @@ export class NotesListComponent implements OnInit, OnDestroy {
           this.isLoading = false;
         }
       });
-    this.updateList = this.notesService.notesUpdate.subscribe(
+
+    this.subNotesUpdate = this.notesService.notesUpdate.subscribe(
       (notes: Note[]) => {
+        if (this.dataStorageService.loggedUser) {
+          this.dataStorageService.storeNotesOnServer().subscribe();
+        }
         this.notes = notes;
         this.isLoading = false;
       });
+
     this.subURL = this.route.firstChild?.url.subscribe(
       (url: UrlSegment[]) => {
         const noteID = Number(url[0].path);
-        if (noteID > this.notes.length) {
+        if (
+          noteID > this.notes.length ||
+          noteID === 0 && this.notes.length === 0 ||
+          Number.isNaN(noteID)
+        ) {
           this.router.navigate(['page-not-found']);
         }
       });
   }
 
   ngOnDestroy(): void {
-    this.updateList.unsubscribe();
-    this.subURL?.unsubscribe();
     this.subAuth.unsubscribe();
+    this.subNotesUpdate.unsubscribe();
+    this.subURL?.unsubscribe();
   }
 
 }

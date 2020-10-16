@@ -38,6 +38,11 @@ export class NotesService {
     this.notesUpdate.next(this.notes);
   }
 
+  editNote(id: number, note: Note): void {
+    this.notes[id] = note;
+    this.notesUpdate.next(this.notes);
+  }
+
   removeNote(index: number): void {
     this.notes.splice(index, 1);
     this.notesUpdate.next(this.notes);

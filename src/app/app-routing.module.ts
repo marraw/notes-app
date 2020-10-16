@@ -16,7 +16,6 @@ const routes: Routes = [
     ]
   },
   { path: 'add-note', component: NotesAddComponent },
-  { path: 'auth', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: 'auth/login', component: AuthComponent },
   { path: 'auth/signup', component: AuthComponent },
   { path: '**', component: PageNotFoundComponent }

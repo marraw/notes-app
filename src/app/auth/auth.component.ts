@@ -14,6 +14,7 @@ import { AuthResponse } from './auth.service';
 export class AuthComponent implements OnInit, OnDestroy {
   loginMode = true;
   isLoading = false;
+  errorMessage: string | null = null;
   private subURL?: Subscription;
 
   constructor(
@@ -25,7 +26,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subURL = this.route.url.subscribe(
       url => {
-        if (`${url[1].path}` === 'login') {
+        if (url[1].path === 'login') {
           this.loginMode = true;
         }
         else {
@@ -36,16 +37,15 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
-    if (!form.valid) {
-      return;
+    if (form.valid) {
+      this.isLoading = true;
     }
     else {
-      this.isLoading = true;
+      return;
     }
 
     const email = form.value.email;
     const password = form.value.password;
-
     let authObservable: Observable<AuthResponse>;
 
     if (this.loginMode) {
@@ -61,6 +61,7 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       },
       error => {
+        this.errorMessage = error;
         this.isLoading = false;
       }
     );
