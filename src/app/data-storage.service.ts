@@ -5,18 +5,33 @@ import { NotesService } from './notes.service';
 import { map, tap } from 'rxjs/operators';
 import { Note } from './note.model';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
+  loggedUser?: string;
+  noUserNotes: Note[] = [];
 
-  constructor(private http: HttpClient, private notesService: NotesService) { }
+  constructor(
+    private http: HttpClient,
+    private notesService: NotesService,
+    private authService: AuthService
+  ) { }
 
-  storeNotesOnBE(): Observable<Note[] | any> {
-    return this.http.put('https://notes-app-angular.firebaseio.com/notes.json', this.notesService.notes);
+  storeNotesOnServer(): Observable<Note[]> {
+    this.authService.user.subscribe(
+      user => {
+        this.loggedUser = user?.id;
+      });
+    return this.http.put<Note[]>(`https://notes-app-angular.firebaseio.com/${this.loggedUser}.json`, this.notesService.notes);
   }
 
-  getNotesFromBE(): Observable<Note[]> {
-    return this.http.get<Note[]>('https://notes-app-angular.firebaseio.com/notes.json').pipe(
+  getNotesFromServer(): Observable<Note[]> {
+    this.authService.user.subscribe(
+      user => {
+        this.loggedUser = user?.id;
+      });
+    return this.http.get<Note[]>(`https://notes-app-angular.firebaseio.com/${this.loggedUser}.json`).pipe(
       map(
         data => {
           if (data === null) {

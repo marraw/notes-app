@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { CollapseDirective } from './header/collapse.directive';
@@ -14,6 +14,8 @@ import { NotesListComponent } from './notes-list/notes-list.component';
 import { NotesAddComponent } from './notes-add/notes-add.component';
 import { NoteDetailsComponent } from './notes-list/note-details/note-details.component';
 import { NoteEditComponent } from './notes-list/note-edit/note-edit.component';
+import { AuthComponent } from './auth/auth.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { NoteEditComponent } from './notes-list/note-edit/note-edit.component';
     NotesListComponent,
     NotesAddComponent,
     NoteDetailsComponent,
-    NoteEditComponent
+    NoteEditComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,9 @@ import { NoteEditComponent } from './notes-list/note-edit/note-edit.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

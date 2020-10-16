@@ -21,7 +21,7 @@ export class NotesService {
 
   setNotes(notes: Note[]): void {
     this.notes = notes;
-    this.notesUpdate.next(this.notes.slice());
+    this.notesUpdate.next(this.notes);
   }
 
   addNote(
@@ -35,11 +35,11 @@ export class NotesService {
       date.time,
       date.date);
     this.notes.push(note);
-    this.notesUpdate.next(this.notes.slice());
+    this.notesUpdate.next(this.notes);
   }
 
   removeNote(index: number): void {
     this.notes.splice(index, 1);
-    this.notesUpdate.next(this.notes.slice());
+    this.notesUpdate.next(this.notes);
   }
 }

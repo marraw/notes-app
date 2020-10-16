@@ -4,6 +4,7 @@ import { Note } from '../note.model';
 import { NotesService } from '../notes.service';
 import { DataStorageService } from '../data-storage.service';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-notes-list',
@@ -13,36 +14,49 @@ import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 export class NotesListComponent implements OnInit, OnDestroy {
   notes: Note[] = [];
   editMode = false;
-  isFetching = true;
+  isLoading = true;
   private updateList!: Subscription;
+  private subAuth!: Subscription;
   private subURL?: Subscription;
 
   constructor(
     private notesService: NotesService,
     private dataStorageService: DataStorageService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.isFetching = true;
-    this.dataStorageService.getNotesFromBE().subscribe();
+    this.isLoading = true;
+    this.subAuth = this.authService.user.subscribe(
+      user => {
+        if (user?.token) {
+          this.dataStorageService.getNotesFromServer().subscribe();
+        }
+        else {
+          this.notes = this.notesService.notes;
+          this.isLoading = false;
+        }
+      });
     this.updateList = this.notesService.notesUpdate.subscribe(
       (notes: Note[]) => {
         this.notes = notes;
-        this.isFetching = false;
-        this.subURL = this.route.firstChild?.url.subscribe(
-          (url: UrlSegment[]) => {
-            const noteID = Number(url[0].path);
-            if (noteID > this.notes.length) {
-              this.router.navigate(['page-not-found']);
-            }
-          });
+        this.isLoading = false;
+      });
+    this.subURL = this.route.firstChild?.url.subscribe(
+      (url: UrlSegment[]) => {
+        const noteID = Number(url[0].path);
+        if (noteID > this.notes.length) {
+          this.router.navigate(['page-not-found']);
+        }
       });
   }
 
   ngOnDestroy(): void {
     this.updateList.unsubscribe();
     this.subURL?.unsubscribe();
+    this.subAuth.unsubscribe();
   }
+
 }

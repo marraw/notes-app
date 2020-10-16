@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,8 +9,9 @@ import { Event, NavigationStart, Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   isCollapsed = true;
+  isLoggedIn = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
     this.router.events.subscribe(
       (event: Event) => {
         if (event instanceof NavigationStart) {
@@ -19,6 +21,19 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.user.subscribe(
+      user => {
+        if (user?.token) {
+          this.isLoggedIn = true;
+        }
+        else {
+          this.isLoggedIn = false;
+        }
+      });
+  }
+
+  logout(): void {
+    this.authService.logOut();
   }
 
 }

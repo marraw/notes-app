@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Event, NavigationStart, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Note } from 'src/app/note.model';
 import { NotesService } from 'src/app/notes.service';
 import { DataStorageService } from '../../data-storage.service';
@@ -14,12 +15,14 @@ export class NoteEditComponent implements OnInit, OnDestroy {
   note!: Note;
   id = 0;
   editMode = false;
-  private subID!: Subscription;
-  private subNav!: Subscription;
+  private subID?: Subscription;
+  private subNav?: Subscription;
+  private subAuth!: Subscription;
 
   constructor(
     private notesService: NotesService,
     private dataStorageService: DataStorageService,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -43,10 +46,19 @@ export class NoteEditComponent implements OnInit, OnDestroy {
       });
   }
 
+  putOnServer(): void {
+    this.subAuth = this.authService.user.subscribe(
+      user => {
+        if (user?.token) {
+          this.dataStorageService.storeNotesOnServer().subscribe();
+        }
+      });
+  }
+
   onEditNote(): void {
     this.onUpdateTime();
     this.editMode = !this.editMode;
-    this.dataStorageService.storeNotesOnBE().subscribe();
+    this.putOnServer();
   }
 
   onUpdateTime(): void {
@@ -58,13 +70,14 @@ export class NoteEditComponent implements OnInit, OnDestroy {
 
   onRemoveNote(): void {
     this.notesService.removeNote(this.id);
-    this.dataStorageService.storeNotesOnBE().subscribe();
+    this.putOnServer();
     this.router.navigate(['notes-list']);
   }
 
   ngOnDestroy(): void {
-    this.subID.unsubscribe();
-    this.subNav.unsubscribe();
+    this.subID?.unsubscribe();
+    this.subNav?.unsubscribe();
+    this.subAuth.unsubscribe();
   }
 
 }

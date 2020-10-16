@@ -8,5 +8,4 @@ export class Note {
     public date: string,
     public id?: number
   ) { }
-
 }
