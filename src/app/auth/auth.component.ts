@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
@@ -15,6 +15,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   loginMode = true;
   isLoading = false;
   errorMessage: string | null = null;
+  authForm!: FormGroup;
   private subURL?: Subscription;
 
   constructor(
@@ -24,6 +25,11 @@ export class AuthComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.authForm = new FormGroup({
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
+    });
+
     this.subURL = this.route.url.subscribe(
       url => {
         if (url[1].path === 'login') {
@@ -36,16 +42,16 @@ export class AuthComponent implements OnInit, OnDestroy {
     );
   }
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
+  onSubmit() {
+    if (this.authForm) {
       this.isLoading = true;
     }
     else {
       return;
     }
 
-    const email = form.value.email;
-    const password = form.value.password;
+    const email = this.authForm.value.email;
+    const password = this.authForm.value.password;
     let authObservable: Observable<AuthResponse>;
 
     if (this.loginMode) {
@@ -65,7 +71,7 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       }
     );
-    form.reset();
+    this.authForm.reset();
   }
 
   navToCreateAcc(): void {

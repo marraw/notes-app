@@ -27,7 +27,7 @@ export class NotesAddComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.noteForm = new FormGroup({
       title: new FormControl(null, [Validators.required, Validators.maxLength(50)]),
-      text: new FormControl(null, Validators.required),
+      text: new FormControl(null, [Validators.required, Validators.maxLength(4000)]),
       important: new FormControl(false)
     });
   }

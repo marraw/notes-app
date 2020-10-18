@@ -1,41 +1,34 @@
 <div class="row justify-content-center">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
     <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
-    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input class="form-control" type="email" id="email" name="email" required email #email="ngModel" ngModel>
-        <span class="help-block" *ngIf="!email.valid && email.touched">Enter a valid email address!</span>
+        <input class="form-control" type="email" id="email" formControlName="email">
+        <span class="help-block form-error" *ngIf="!authForm.get('email')?.valid && authForm.get('email')?.touched">
+          Enter a valid email address!</span>
       </div>
 
       <div class="form-group">
         <label for="pass">Password</label>
-        <input class="form-control" type="password" id="password" name="password" required minlength="6"
-          #password="ngModel" ngModel>
-        <span class="help-block" *ngIf="!password.valid && password.touched">Password must contain at least 6
-          characters!</span>
-      </div>
-
-      <div class="form-group" *ngIf="!loginMode">
-        <label for="repeat">Repeat password</label>
-        <input class="form-control" type="password" id="repeat" name="repeat" required minlength="6" #repeat="ngModel"
-          ngModel>
-        <span class="help-block"
-          *ngIf="repeat.viewModel !== password.viewModel && !repeat.valid && repeat.touched">Passwords must
-          match!</span>
+        <input class="form-control" type="password" id="password" formControlName="password">
+        <span class="help-block form-error"
+          *ngIf="!authForm.get('password')?.valid && authForm.get('password')?.touched">
+          Password must contain at least 6 characters!</span>
       </div>
 
       <button type="submit" *ngIf="!isLoading" [disabled]="!authForm.valid"
-        [ngClass]="loginMode ? 'btn btn-success' : 'btn btn-primary'">{{ loginMode ? 'Log In' : 'Create an account'}}</button>
+        [ngClass]="loginMode ? 'btn btn-success' : 'btn btn-primary'">
+        {{ loginMode ? 'Log In' : 'Create an account'}}</button>
       <app-loading-spinner class="row justify-content-center" *ngIf="isLoading"></app-loading-spinner>
 
       <div *ngIf="loginMode">
         <hr>
         <div class="row justify-content-center">
           <span class="help-block">First time here? <button type="button" class="btn btn-secondary"
-              (click)="navToCreateAcc()">Create an
-              account</button></span>
+              (click)="navToCreateAcc()">
+              Create an account</button></span>
         </div>
       </div>
     </form>

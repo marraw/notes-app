@@ -28,7 +28,6 @@ export class NotesListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
     this.subAuth = this.authService.user.subscribe(
       user => {
         if (user?.token) {
@@ -41,24 +40,24 @@ export class NotesListComponent implements OnInit, OnDestroy {
       });
 
     this.subNotesUpdate = this.notesService.notesUpdate.subscribe(
-      (notes: Note[]) => {
+      notes => {
+        this.notes = notes;
         if (this.dataStorageService.loggedUser) {
           this.dataStorageService.storeNotesOnServer().subscribe();
         }
-        this.notes = notes;
         this.isLoading = false;
-      });
 
-    this.subURL = this.route.firstChild?.url.subscribe(
-      (url: UrlSegment[]) => {
-        const noteID = Number(url[0].path);
-        if (
-          noteID > this.notes.length ||
-          noteID === 0 && this.notes.length === 0 ||
-          Number.isNaN(noteID)
-        ) {
-          this.router.navigate(['page-not-found']);
-        }
+        this.subURL = this.route.firstChild?.url.subscribe(
+          (url: UrlSegment[]) => {
+            const noteID = Number(url[0].path);
+            if (
+              noteID > this.notes.length ||
+              noteID === 0 && this.notes.length === 0 ||
+              Number.isNaN(noteID)
+            ) {
+              this.router.navigate(['page-not-found']);
+            }
+          });
       });
   }
 

@@ -7,7 +7,6 @@ textarea.ng-invalid.ng-touched {
   border: 1px solid red;
 }
 
-input.ng-invalid.ng-touched+span.help-block,
-textarea.ng-invalid.ng-touched+span.help-block {
+span.form-error {
   color: red;
 }

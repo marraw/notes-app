@@ -23,10 +23,10 @@ export class NoteEditComponent implements OnInit, OnDestroy {
   ) {
     this.subNav = this.router.events.subscribe(
       (event: Event) => {
-        if (event instanceof NavigationStart) {
+        if (event instanceof NavigationStart && this.note.text !== '' && this.editMode) {
           this.onEditNote();
-          this.editMode = false;
         }
+        this.editMode = false;
       });
   }
 
@@ -56,13 +56,12 @@ export class NoteEditComponent implements OnInit, OnDestroy {
 
   onRemoveNote(): void {
     this.notesService.removeNote(this.id);
-    this.router.navigate(['notes-list']);
+    this.editMode = false;
   }
 
   ngOnDestroy(): void {
     this.subID?.unsubscribe();
     this.subNav?.unsubscribe();
-    this.editMode = false;
   }
 
 }

@@ -10,7 +10,6 @@ import { AuthService } from './auth/auth.service';
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
   loggedUser?: string;
-  noUserNotes: Note[] = [];
 
   constructor(
     private http: HttpClient,

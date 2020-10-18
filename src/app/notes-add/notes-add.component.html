@@ -6,7 +6,7 @@
         <input id="title" class="form-control note-paper" type="text" placeholder="Enter a title" autocomplete="off"
           formControlName="title">
 
-        <span class="help-block" *ngIf="!noteForm.get('title')?.valid && noteForm.get('title')?.touched">
+        <span class="help-block form-error" *ngIf="!noteForm.get('title')?.valid && noteForm.get('title')?.touched">
           <span class="help-block" *ngIf="noteForm.get('title')?.errors['required']">You have to
             enter a title!</span>
           <span class="help-block" *ngIf="noteForm.get('title')?.errors['maxlength']">A title is too long!</span>
@@ -16,8 +16,10 @@
       <div class="form-group">
         <textarea id="text" class="form-control note-paper" rows="15" placeholder="Your note goes here..."
           formControlName="text"></textarea>
-        <span class="help-block" *ngIf="!noteForm.get('text')?.valid && noteForm.get('text')?.touched">You cannot add
-          an empty note!</span>
+        <span class="help-block form-error" *ngIf="!noteForm.get('text')?.valid && noteForm.get('text')?.touched">
+          <span class="help-block" *ngIf="noteForm.get('text')?.errors['required']">You cannot add an empty note!</span>
+          <span class="help-block" *ngIf="noteForm.get('text')?.errors['maxlength']">A note is too long!</span>
+        </span>
       </div>
 
       <div class="form-check">
