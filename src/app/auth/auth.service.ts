@@ -40,7 +40,7 @@ export class AuthService {
           (data: AuthResponse) => {
             this.handleAuth(data.email, data.localId, data.idToken, Number(data.expiresIn));
           })
-      )
+      );
   }
 
   createAccount(email: string, password: string): Observable<AuthResponse> {
@@ -110,7 +110,7 @@ export class AuthService {
     localStorage.setItem('userData', JSON.stringify(user));
   }
 
-  private handleError(errorResponse: HttpErrorResponse) {
+  private handleError(errorResponse: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
     if (!errorResponse.error || !errorResponse.error.error) {
       return throwError(errorMessage);
