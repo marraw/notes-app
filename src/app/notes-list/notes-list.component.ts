@@ -57,6 +57,9 @@ export class NotesListComponent implements OnInit, OnDestroy {
             ) {
               this.router.navigate(['page-not-found']);
             }
+            else if (noteID === -1) {
+              this.router.navigate(['notes-list']);
+            }
           });
       });
   }
