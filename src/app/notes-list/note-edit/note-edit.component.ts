@@ -56,7 +56,7 @@ export class NoteEditComponent implements OnInit, OnDestroy {
 
   onRemoveNote(): void {
     this.notesService.removeNote(this.id);
-    this.router.navigate([`notes-list/${this.id - 1}`]);
+    this.router.navigate(['notes-list/-1']);
     this.editMode = false;
   }
 
