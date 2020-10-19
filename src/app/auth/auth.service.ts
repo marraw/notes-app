@@ -31,8 +31,10 @@ export class AuthService {
   logIn(email: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDgLMc4Cmh2tznYYgYzxHTvZZvfy_SKcwU',
       {
-        email: email,
-        password: password,
+        // email: email,
+        // password: password,
+        email,
+        password,
         returnSecureToken: true
       }).pipe(
         catchError(this.handleError),
@@ -46,8 +48,8 @@ export class AuthService {
   createAccount(email: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDgLMc4Cmh2tznYYgYzxHTvZZvfy_SKcwU',
       {
-        email: email,
-        password: password,
+        email,
+        password,
         returnSecureToken: true
       }).pipe(
         catchError(this.handleError),
@@ -62,21 +64,21 @@ export class AuthService {
     const userData: {
       email: string;
       id: string;
-      _token: string;
-      _tokenExpirationDate: string;
+      token: string;
+      tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData')!);
 
     if (userData) {
       const loadedUser = new User(
         userData.email,
         userData.id,
-        userData._token,
-        new Date(userData._tokenExpirationDate)
+        userData.token,
+        new Date(userData.tokenExpirationDate)
       );
 
-      if (loadedUser.token) {
+      if (loadedUser.userToken) {
         this.user.next(loadedUser);
-        const expiration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+        const expiration = new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
         this.autoLogOut(expiration);
       }
     }
@@ -87,7 +89,6 @@ export class AuthService {
 
   logOut(): void {
     localStorage.removeItem('userData');
-    this.router.navigate(['auth', 'login']);
     this.user.next(null);
     this.notesService.setNotes([]);
     if (this.tokenExpirationTimer) {

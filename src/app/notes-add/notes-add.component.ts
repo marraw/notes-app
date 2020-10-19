@@ -36,7 +36,7 @@ export class NotesAddComponent implements OnInit, OnDestroy {
     this.notesService.addNote(this.noteForm.value, this.notesService.date);
     this.subAuth = this.authService.user.subscribe(
       user => {
-        if (user?.token) {
+        if (user?.userToken) {
           this.subPutOnServer = this.dataStorageService.storeNotesOnServer().subscribe();
         }
       });

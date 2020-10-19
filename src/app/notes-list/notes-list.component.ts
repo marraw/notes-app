@@ -30,7 +30,7 @@ export class NotesListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subAuth = this.authService.user.subscribe(
       user => {
-        if (user?.token) {
+        if (user?.userToken) {
           this.dataStorageService.getNotesFromServer().subscribe();
         }
         else {

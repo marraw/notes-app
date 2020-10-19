@@ -11,6 +11,7 @@ import { AuthService } from '../auth/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   isCollapsed = true;
   isLoggedIn = false;
+  loggedUser?: string;
   private subNav?: Subscription;
 
   constructor(private authService: AuthService, private router: Router) {
@@ -25,11 +26,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authService.user.subscribe(
       user => {
-        if (user?.token) {
+        if (user?.userToken) {
           this.isLoggedIn = true;
+          this.loggedUser = user.email;
         }
         else {
           this.isLoggedIn = false;
+          this.loggedUser = undefined;
         }
       });
   }

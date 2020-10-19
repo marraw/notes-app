@@ -26,7 +26,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      email: new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(50)]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)])
     });
 
