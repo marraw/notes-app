@@ -5,7 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 import { User } from './user.model';
-import { NotesService } from '../notes.service';
+import { NotesService } from '../notes/notes.service';
 
 export interface AuthResponse {
   kind: string;
@@ -31,8 +31,6 @@ export class AuthService {
   logIn(email: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDgLMc4Cmh2tznYYgYzxHTvZZvfy_SKcwU',
       {
-        // email: email,
-        // password: password,
         email,
         password,
         returnSecureToken: true

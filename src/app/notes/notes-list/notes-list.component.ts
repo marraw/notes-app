@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Note } from '../note.model';
-import { NotesService } from '../notes.service';
-import { DataStorageService } from '../data-storage.service';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+
+import { AuthService } from '../../auth/auth.service';
+import { DataStorageService } from '../../shared/data-storage.service';
+import { NotesService } from '../notes.service';
+import { Note } from '../note.model';
 
 @Component({
   selector: 'app-notes-list',
@@ -52,6 +53,7 @@ export class NotesListComponent implements OnInit, OnDestroy {
             const noteID = Number(url[0].path);
             if (
               noteID > this.notes.length ||
+              noteID < -1 ||
               noteID === 0 && this.notes.length === 0 ||
               Number.isNaN(noteID)
             ) {

@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Event, NavigationStart, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Note } from 'src/app/note.model';
-import { NotesService } from 'src/app/notes.service';
+
+import { NotesService } from '../../notes.service';
+import { Note } from '../../note.model';
 
 @Component({
   selector: 'app-note-edit',

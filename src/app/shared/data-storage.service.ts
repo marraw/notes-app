@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { NotesService } from './notes.service';
+import { NotesService } from '../notes/notes.service';
 import { map, tap } from 'rxjs/operators';
-import { Note } from './note.model';
+import { Note } from '../notes/note.model';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {

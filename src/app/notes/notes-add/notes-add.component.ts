@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { NotesService } from '../notes.service';
-import { DataStorageService } from '../data-storage.service';
-import { AuthService } from '../auth/auth.service';
-import { Subscription } from 'rxjs';
+import { DataStorageService } from '../../shared/data-storage.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-notes-add',

@@ -23,8 +23,8 @@
       <span class="badge badge-secondary" [ngClass]="isCollapsed ? 'badge' : 'collapsed'">{{ loggedUser }}</span>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-item btn btn-outline-light" *ngIf="!isLoggedIn" routerLink="auth/login">Log in</a>
-          <a class="nav-item btn btn-outline-light" *ngIf="isLoggedIn" routerLink="auth/login" (click)="logout()">Log
+          <a class="nav-item btn btn-outline-light" *ngIf="!isLoggedIn" routerLink="login">Log in</a>
+          <a class="nav-item btn btn-outline-light" *ngIf="isLoggedIn" routerLink="login" (click)="logout()">Log
             out</a>
         </li>
       </ul>

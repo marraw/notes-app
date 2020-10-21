@@ -32,7 +32,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     this.subURL = this.route.url.subscribe(
       url => {
-        if (url[1].path === 'login') {
+        if (url[0].path === 'login') {
           this.loginMode = true;
         }
         else {
@@ -72,11 +72,6 @@ export class AuthComponent implements OnInit, OnDestroy {
       }
     );
     this.authForm.reset();
-  }
-
-  navToCreateAcc(): void {
-    this.loginMode = false;
-    this.router.navigate(['auth/signup']);
   }
 
   ngOnDestroy(): void {

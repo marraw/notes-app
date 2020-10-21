@@ -21,16 +21,18 @@
       <button type="submit" *ngIf="!isLoading" [disabled]="!authForm.valid"
         [ngClass]="loginMode ? 'btn btn-success' : 'btn btn-primary'">
         {{ loginMode ? 'Log In' : 'Create an account'}}</button>
-      <app-loading-spinner class="row justify-content-center" *ngIf="isLoading"></app-loading-spinner>
-
-      <div *ngIf="loginMode">
-        <hr>
-        <div class="row justify-content-center">
-          <span class="help-block">First time here? <button type="button" class="btn btn-secondary"
-              (click)="navToCreateAcc()">
-              Create an account</button></span>
-        </div>
+      <div class="row justify-content-center" *ngIf="isLoading">
+        <div appLoadingSpinner></div>
       </div>
+
     </form>
+    <div *ngIf="loginMode">
+      <hr>
+      <div class="row justify-content-center">
+        <span class="help-block">First time here? <button type="button" class="btn btn-secondary"
+            routerLink="../signup">
+            Create an account</button></span>
+      </div>
+    </div>
   </div>
 </div>
