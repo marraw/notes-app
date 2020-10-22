@@ -11,13 +11,12 @@ export class LoadingSpinnerDirective implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const div = this.renderer.createElement('div');
+    this.renderer.addClass(this.elementRef.nativeElement, 'lds-ring');
 
     for (let i = 0; i < 4; i++) {
+      const div = this.renderer.createElement('div');
       this.renderer.appendChild(this.elementRef.nativeElement, div);
-      this.renderer.parentNode(this.elementRef);
     }
-    this.renderer.addClass(this.elementRef.nativeElement, 'lds-ring');
   }
 
 }

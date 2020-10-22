@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
@@ -20,8 +19,7 @@ import { NoteEditComponent } from './notes-list/note-edit/note-edit.component';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    NotesRoutingModule,
-    RouterModule
+    NotesRoutingModule
   ]
 })
 export class NotesModule { }

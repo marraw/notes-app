@@ -12,8 +12,7 @@ const routes: Routes = [
       { path: ':id/edit', component: NoteEditComponent }
     ]
   },
-  { path: 'add-note', component: NotesAddComponent },
-  // { path: '**', redirectTo: 'page-not-found' }
+  { path: 'add-note', component: NotesAddComponent }
 ];
 
 @NgModule({

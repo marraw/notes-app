@@ -53,14 +53,11 @@ export class NotesListComponent implements OnInit, OnDestroy {
             const noteID = Number(url[0].path);
             if (
               noteID > this.notes.length ||
-              noteID < -1 ||
+              noteID < 0 ||
               noteID === 0 && this.notes.length === 0 ||
               Number.isNaN(noteID)
             ) {
               this.router.navigate(['page-not-found']);
-            }
-            else if (noteID === -1) {
-              this.router.navigate(['notes-list']);
             }
           });
       });
