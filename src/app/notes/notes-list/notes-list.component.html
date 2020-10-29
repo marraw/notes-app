@@ -4,10 +4,10 @@
       <div appLoadingSpinner></div>
     </div>
     <ul class="list-group">
-      <app-note-details *ngFor="let note of notes; let i = index" [id]="i"></app-note-details>
+      <app-note-details *ngFor="let note of notes; let i = index" [id]="i" [@delete]></app-note-details>
     </ul>
     <div *ngIf="notes.length === 0 && !isLoading">
-      <h6><em>Notes list is empty</em></h6>
+      <h6><em>Note list is empty</em></h6>
       <hr>
       <button class="btn btn-success" routerLink="../add-note">Add note</button>
     </div>

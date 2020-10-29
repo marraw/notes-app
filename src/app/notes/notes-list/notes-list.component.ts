@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { AuthService } from '../../auth/auth.service';
 import { DataStorageService } from '../../shared/data-storage.service';
@@ -10,7 +11,25 @@ import { Note } from '../note.model';
 @Component({
   selector: 'app-notes-list',
   templateUrl: './notes-list.component.html',
-  styleUrls: ['./notes-list.component.css']
+  styleUrls: ['./notes-list.component.css'],
+  animations: [
+    trigger('delete', [
+      state('normal', style({
+        opacity: 1,
+        transform: 'translateX(0) scale(1)'
+      })),
+      transition('* => void', [
+        animate(100, style({
+          transform: 'scale(0.75)'
+        })),
+        animate(200,
+          style({
+            opacity: 0,
+            transform: 'translateX(-700px) scale(0.75)'
+          }))
+      ])
+    ])
+  ]
 })
 export class NotesListComponent implements OnInit, OnDestroy {
   notes: Note[] = [];

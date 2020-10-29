@@ -6,9 +6,9 @@
   <div class="form-group">
     <div class="card">
       <textarea class="form-control note-paper" [disabled]="!editMode" cols="40" rows="15" name="text" #text="ngModel"
-        required maxlength="4000" [(ngModel)]="note.text"></textarea>
+        required maxlength="5000" [(ngModel)]="note.text"></textarea>
     </div>
-    <span class="help-block form-error" *ngIf="!text.valid && !text.disabled">You cannot leave an empty note!</span>
+    <span class="help-block form-error" *ngIf="!text.valid && !text.disabled">You cannot leave an empty note.</span>
   </div>
 
   <span>Last update: <em>{{note.time}}</em> | <em>{{note.date}}</em></span>

@@ -8,8 +8,9 @@
 
         <span class="help-block form-error" *ngIf="!noteForm.get('title')?.valid && noteForm.get('title')?.touched">
           <span class="help-block" *ngIf="noteForm.get('title')?.errors['required']">You have to
-            enter a title!</span>
-          <span class="help-block" *ngIf="noteForm.get('title')?.errors['maxlength']">A title is too long!</span>
+            enter a title.</span>
+          <span class="help-block" *ngIf="noteForm.get('title')?.errors['maxlength']">A title cannot be longer than 50
+            characters.</span>
         </span>
       </div>
 
@@ -17,8 +18,9 @@
         <textarea id="text" class="form-control note-paper" rows="15" placeholder="Your note goes here..."
           formControlName="text"></textarea>
         <span class="help-block form-error" *ngIf="!noteForm.get('text')?.valid && noteForm.get('text')?.touched">
-          <span class="help-block" *ngIf="noteForm.get('text')?.errors['required']">You cannot add an empty note!</span>
-          <span class="help-block" *ngIf="noteForm.get('text')?.errors['maxlength']">A note is too long!</span>
+          <span class="help-block" *ngIf="noteForm.get('text')?.errors['required']">You cannot add an empty note.</span>
+          <span class="help-block" *ngIf="noteForm.get('text')?.errors['maxlength']">A note cannot be longer than 5000
+            characters.</span>
         </span>
       </div>
 
