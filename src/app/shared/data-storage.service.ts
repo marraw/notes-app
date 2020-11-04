@@ -15,35 +15,36 @@ export class DataStorageService {
     private http: HttpClient,
     private notesService: NotesService,
     private authService: AuthService
-  ) { }
+  ) {}
 
   storeNotesOnServer(): Observable<Note[]> {
-    this.authService.user.subscribe(
-      user => {
-        this.loggedUser = user?.id;
-      });
-    return this.http.put<Note[]>(`https://notes-app-angular.firebaseio.com/${this.loggedUser}.json`, this.notesService.notes);
+    this.authService.user.subscribe((user) => {
+      this.loggedUser = user?.id;
+    });
+    return this.http.put<Note[]>(
+      `https://notes-app-angular.firebaseio.com/${this.loggedUser}.json`,
+      this.notesService.notes
+    );
   }
 
   getNotesFromServer(): Observable<Note[]> {
-    this.authService.user.subscribe(
-      user => {
-        this.loggedUser = user?.id;
-      });
-    return this.http.get<Note[]>(`https://notes-app-angular.firebaseio.com/${this.loggedUser}.json`).pipe(
-      map(
-        data => {
+    this.authService.user.subscribe((user) => {
+      this.loggedUser = user?.id;
+    });
+    return this.http
+      .get<Note[]>(
+        `https://notes-app-angular.firebaseio.com/${this.loggedUser}.json`
+      )
+      .pipe(
+        map((data) => {
           if (data === null) {
             data = [];
           }
           return data;
-        }
-      ),
-      tap(
-        notes => {
+        }),
+        tap((notes) => {
           this.notesService.setNotes(notes);
         })
-    );
+      );
   }
-
 }

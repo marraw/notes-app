@@ -7,16 +7,18 @@ import { NotesAddComponent } from './notes-add/notes-add.component';
 
 const routes: Routes = [
   {
-    path: 'notes-list', component: NotesListComponent, children: [
+    path: 'notes-list',
+    component: NotesListComponent,
+    children: [
       { path: ':id', redirectTo: ':id/edit', pathMatch: 'full' },
-      { path: ':id/edit', component: NoteEditComponent }
-    ]
+      { path: ':id/edit', component: NoteEditComponent },
+    ],
   },
-  { path: 'add-note', component: NotesAddComponent }
+  { path: 'add-note', component: NotesAddComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class NotesRoutingModule { }
+export class NotesRoutingModule {}

@@ -27,35 +27,51 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private notesService: NotesService
-  ) { }
+  ) {}
 
   logIn(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPIKey}`,
-      {
-        email,
-        password,
-        returnSecureToken: true
-      }).pipe(
+    return this.http
+      .post<AuthResponse>(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPIKey}`,
+        {
+          email,
+          password,
+          returnSecureToken: true,
+        }
+      )
+      .pipe(
         catchError(this.handleError),
-        tap(
-          (data: AuthResponse) => {
-            this.handleAuth(data.email, data.localId, data.idToken, Number(data.expiresIn));
-          })
+        tap((data: AuthResponse) => {
+          this.handleAuth(
+            data.email,
+            data.localId,
+            data.idToken,
+            Number(data.expiresIn)
+          );
+        })
       );
   }
 
   createAccount(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`,
-      {
-        email,
-        password,
-        returnSecureToken: true
-      }).pipe(
+    return this.http
+      .post<AuthResponse>(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`,
+        {
+          email,
+          password,
+          returnSecureToken: true,
+        }
+      )
+      .pipe(
         catchError(this.handleError),
-        tap(
-          (data: AuthResponse) => {
-            this.handleAuth(data.email, data.localId, data.idToken, Number(data.expiresIn));
-          })
+        tap((data: AuthResponse) => {
+          this.handleAuth(
+            data.email,
+            data.localId,
+            data.idToken,
+            Number(data.expiresIn)
+          );
+        })
       );
   }
 
@@ -77,11 +93,12 @@ export class AuthService {
 
       if (loadedUser.userToken) {
         this.user.next(loadedUser);
-        const expiration = new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
+        const expiration =
+          new Date(userData.tokenExpirationDate).getTime() -
+          new Date().getTime();
         this.autoLogOut(expiration);
       }
-    }
-    else {
+    } else {
       return;
     }
   }
@@ -103,7 +120,12 @@ export class AuthService {
     }, expiration);
   }
 
-  private handleAuth(email: string, userID: string, token: string, expiresIn: number): void {
+  private handleAuth(
+    email: string,
+    userID: string,
+    token: string,
+    expiresIn: number
+  ): void {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userID, token, expirationDate);
     this.user.next(user);
@@ -112,7 +134,7 @@ export class AuthService {
   }
 
   private handleError(errorResponse: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'An unknown error occurred!';
+    let errorMessage = 'An unknown error occurred.';
     if (!errorResponse.error || !errorResponse.error.error) {
       return throwError(errorMessage);
     }
@@ -129,5 +151,4 @@ export class AuthService {
     }
     return throwError(errorMessage);
   }
-
 }

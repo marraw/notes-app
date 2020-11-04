@@ -1,39 +1,82 @@
 <div class="row justify-content-center">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
     <form [formGroup]="noteForm" (ngSubmit)="onAddNote()">
-
       <div class="form-group">
-        <input id="title" class="form-control note-paper" type="text" placeholder="Enter a title" autocomplete="off"
-          formControlName="title">
+        <input
+          id="title"
+          class="form-control note-paper"
+          type="text"
+          placeholder="Enter a title"
+          autocomplete="off"
+          formControlName="title"
+        />
 
-        <span class="help-block form-error" *ngIf="!noteForm.get('title')?.valid && noteForm.get('title')?.touched">
-          <span class="help-block" *ngIf="noteForm.get('title')?.errors['required']">You have to
-            enter a title.</span>
-          <span class="help-block" *ngIf="noteForm.get('title')?.errors['maxlength']">A title cannot be longer than 50
-            characters.</span>
+        <span
+          class="help-block form-error"
+          *ngIf="
+            !noteForm.get('title')?.valid && noteForm.get('title')?.touched
+          "
+        >
+          <span
+            class="help-block"
+            *ngIf="noteForm.get('title')?.errors['required']"
+            >You have to enter a title.</span
+          >
+          <span
+            class="help-block"
+            *ngIf="noteForm.get('title')?.errors['maxlength']"
+            >A title cannot be longer than 50 characters.</span
+          >
         </span>
       </div>
 
       <div class="form-group">
-        <textarea id="text" class="form-control note-paper" rows="15" placeholder="Your note goes here..."
-          formControlName="text"></textarea>
-        <span class="help-block form-error" *ngIf="!noteForm.get('text')?.valid && noteForm.get('text')?.touched">
-          <span class="help-block" *ngIf="noteForm.get('text')?.errors['required']">You cannot add an empty note.</span>
-          <span class="help-block" *ngIf="noteForm.get('text')?.errors['maxlength']">A note cannot be longer than 5000
-            characters.</span>
+        <textarea
+          id="text"
+          class="form-control note-paper"
+          rows="15"
+          placeholder="Your note goes here..."
+          formControlName="text"
+        ></textarea>
+        <span
+          class="help-block form-error"
+          *ngIf="!noteForm.get('text')?.valid && noteForm.get('text')?.touched"
+        >
+          <span
+            class="help-block"
+            *ngIf="noteForm.get('text')?.errors['required']"
+            >You cannot add an empty note.</span
+          >
+          <span
+            class="help-block"
+            *ngIf="noteForm.get('text')?.errors['maxlength']"
+            >A note cannot be longer than 5000 characters.</span
+          >
         </span>
       </div>
 
       <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="important" formControlName="important">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="important"
+          formControlName="important"
+        />
         <label for="important" class="form-check-label">Important note</label>
       </div>
 
       <div class="form-group">
-        <button type="submit" [disabled]="!noteForm.valid" class="btn btn-success">Add note</button>
+        <button
+          type="submit"
+          [disabled]="!noteForm.valid"
+          class="btn btn-success"
+        >
+          Add note
+        </button>
       </div>
-      <span #noteAdded class="alert alert-success" style="visibility: hidden;">Added successfully</span>
-
+      <span #noteAdded class="alert alert-success" style="visibility: hidden"
+        >Added successfully</span
+      >
     </form>
   </div>
 </div>

@@ -8,25 +8,18 @@ import { ShortenPipe } from './shorten.pipe';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: 'page-not-found', component: PageNotFoundComponent }
+  { path: 'page-not-found', component: PageNotFoundComponent },
 ];
 
 @NgModule({
-  declarations: [
-    CollapseDirective,
-    LoadingSpinnerDirective,
-    ShortenPipe
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ],
+  declarations: [CollapseDirective, LoadingSpinnerDirective, ShortenPipe],
+  imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [
     CommonModule,
     RouterModule,
     CollapseDirective,
     LoadingSpinnerDirective,
-    ShortenPipe
-  ]
+    ShortenPipe,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

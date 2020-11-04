@@ -1,14 +1,10 @@
 import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[appLoadingSpinner]'
+  selector: '[appLoadingSpinner]',
 })
 export class LoadingSpinnerDirective implements OnInit {
-
-  constructor(
-    private renderer: Renderer2,
-    private elementRef: ElementRef
-  ) { }
+  constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
 
   ngOnInit(): void {
     this.renderer.addClass(this.elementRef.nativeElement, 'lds-ring');
@@ -18,5 +14,4 @@ export class LoadingSpinnerDirective implements OnInit {
       this.renderer.appendChild(this.elementRef.nativeElement, div);
     }
   }
-
 }

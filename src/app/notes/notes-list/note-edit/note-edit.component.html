@@ -1,27 +1,56 @@
 <form (ngSubmit)="onEditNote()" #editForm="ngForm">
   <div class="form-group">
-    <h4>{{note.title}}</h4><span class="badge badge-warning badge-pill" *ngIf="note.important">Important</span>
+    <h4>{{ note.title }}</h4>
+    <span class="badge badge-warning badge-pill" *ngIf="note.important"
+      >Important</span
+    >
   </div>
 
   <div class="form-group">
     <div class="card">
-      <textarea class="form-control note-paper" [disabled]="!editMode" cols="40" rows="15" name="text" #text="ngModel"
-        required maxlength="5000" [(ngModel)]="note.text"></textarea>
+      <textarea
+        class="form-control note-paper"
+        [disabled]="!editMode"
+        cols="40"
+        rows="15"
+        name="text"
+        #text="ngModel"
+        required
+        maxlength="5000"
+        [(ngModel)]="note.text"
+      ></textarea>
     </div>
-    <span class="help-block form-error" *ngIf="!text.valid && !text.disabled">You cannot leave an empty note.</span>
+    <span class="help-block form-error" *ngIf="!text.valid && !text.disabled"
+      >You cannot leave an empty note.</span
+    >
   </div>
 
-  <span>Last update: <em>{{note.time}}</em> | <em>{{note.date}}</em></span>
+  <span
+    >Last update: <em>{{ note.time }}</em> | <em>{{ note.date }}</em></span
+  >
 
   <div class="form-group">
     <div class="form-check check">
-      <input type="checkbox" class="form-check-input" id="important" name="important" [disabled]="!editMode"
-        [(ngModel)]="note.important">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="important"
+        name="important"
+        [disabled]="!editMode"
+        [(ngModel)]="note.important"
+      />
       <label for="important" class="form-check-label">Important note</label>
     </div>
   </div>
 
-  <button [disabled]="!text.valid && !text.disabled" [ngClass]="editMode ? 'btn btn-success' : 'btn btn-secondary'"
-    type="submit">{{ editMode ? 'Save' : 'Edit' }}</button>
-  <button class="btn btn-danger" type="button" (click)="onRemoveNote()">Remove</button>
+  <button
+    [disabled]="!text.valid && !text.disabled"
+    [ngClass]="editMode ? 'btn btn-success' : 'btn btn-secondary'"
+    type="submit"
+  >
+    {{ editMode ? "Save" : "Edit" }}
+  </button>
+  <button class="btn btn-danger" type="button" (click)="onRemoveNote()">
+    Remove
+  </button>
 </form>

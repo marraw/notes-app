@@ -9,7 +9,7 @@ import { AuthResponse } from './auth.service';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit, OnDestroy {
   loginMode = true;
@@ -22,31 +22,34 @@ export class AuthComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.authForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(50)]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)])
+      email: new FormControl(null, [
+        Validators.required,
+        Validators.email,
+        Validators.maxLength(50),
+      ]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
     });
 
-    this.subURL = this.route.url.subscribe(
-      url => {
-        if (url[0].path === 'login') {
-          this.loginMode = true;
-        }
-        else {
-          this.loginMode = false;
-        }
+    this.subURL = this.route.url.subscribe((url) => {
+      if (url[0].path === 'login') {
+        this.loginMode = true;
+      } else {
+        this.loginMode = false;
       }
-    );
+    });
   }
 
   onSubmit(): void {
     if (this.authForm) {
       this.isLoading = true;
-    }
-    else {
+    } else {
       return;
     }
 
@@ -56,17 +59,16 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     if (this.loginMode) {
       authObservable = this.authService.logIn(email, password);
-    }
-    else {
+    } else {
       authObservable = this.authService.createAccount(email, password);
     }
 
     authObservable.subscribe(
-      user => {
+      (user) => {
         this.router.navigate(['notes-list']);
         this.isLoading = false;
       },
-      error => {
+      (error) => {
         this.errorMessage = error;
         this.isLoading = false;
       }
@@ -77,5 +79,4 @@ export class AuthComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subURL?.unsubscribe();
   }
-
 }

@@ -13,13 +13,8 @@ import { NoteEditComponent } from './notes-list/note-edit/note-edit.component';
     NotesListComponent,
     NotesAddComponent,
     NoteDetailsComponent,
-    NoteEditComponent
+    NoteEditComponent,
   ],
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    SharedModule,
-    NotesRoutingModule
-  ]
+  imports: [FormsModule, ReactiveFormsModule, SharedModule, NotesRoutingModule],
 })
-export class NotesModule { }
+export class NotesModule {}
