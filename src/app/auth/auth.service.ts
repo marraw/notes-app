@@ -104,9 +104,9 @@ export class AuthService {
   }
 
   logOut(): void {
+    this.router.navigate(['login']);
     localStorage.removeItem('userData');
     this.user.next(null);
-    this.router.navigate(['login']);
     this.notesService.setNotes([]);
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
@@ -134,7 +134,7 @@ export class AuthService {
   }
 
   private handleError(errorResponse: HttpErrorResponse): Observable<never> {
-    let errorMessage = 'An unknown error occurred.';
+    let errorMessage = 'Please enter a valid information.';
     if (!errorResponse.error || !errorResponse.error.error) {
       return throwError(errorMessage);
     }

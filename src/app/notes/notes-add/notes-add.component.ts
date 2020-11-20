@@ -21,8 +21,8 @@ import { AuthService } from '../../auth/auth.service';
 export class NotesAddComponent implements OnInit, OnDestroy {
   noteForm!: FormGroup;
   @ViewChild('noteAdded', { static: false }) noteAdded!: ElementRef;
-  private subAuth?: Subscription;
-  private subPutOnServer?: Subscription;
+  private auth?: Subscription;
+  private storeNotes?: Subscription;
 
   constructor(
     private notesService: NotesService,
@@ -47,9 +47,9 @@ export class NotesAddComponent implements OnInit, OnDestroy {
 
   onAddNote(): void {
     this.notesService.addNote(this.noteForm.value, this.notesService.date);
-    this.subAuth = this.authService.user.subscribe((user) => {
+    this.auth = this.authService.user.subscribe((user) => {
       if (user?.userToken) {
-        this.subPutOnServer = this.dataStorageService
+        this.storeNotes = this.dataStorageService
           .storeNotesOnServer()
           .subscribe();
       }
@@ -74,7 +74,7 @@ export class NotesAddComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subAuth?.unsubscribe();
-    this.subPutOnServer?.unsubscribe();
+    this.auth?.unsubscribe();
+    this.storeNotes?.unsubscribe();
   }
 }

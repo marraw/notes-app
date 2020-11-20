@@ -1,9 +1,13 @@
-<a [routerLink]="[id, 'edit']">
-  <li class="list-group-item note-paper" routerLinkActive="activeNote">
+<li>
+  <a
+    class="list-group-item note-paper"
+    routerLinkActive="activeNote"
+    [routerLink]="[id, 'edit']"
+  >
     <h4>{{ note.title }}</h4>
     <div>{{ note.text | shorten: 240 }}</div>
     <span class="badge badge-warning badge-pill" *ngIf="note.important"
       >Important</span
     >
-  </li>
-</a>
+  </a>
+</li>

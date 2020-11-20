@@ -15,6 +15,7 @@ const routes: Routes = [
     ],
   },
   { path: 'add-note', component: NotesAddComponent },
+  { path: '**', redirectTo: 'page-not-found' },
 ];
 
 @NgModule({

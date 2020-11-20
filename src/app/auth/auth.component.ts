@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   isLoading = false;
   errorMessage: string | null = null;
   authForm!: FormGroup;
-  private subURL?: Subscription;
+  private activeURL?: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -37,7 +37,7 @@ export class AuthComponent implements OnInit, OnDestroy {
       ]),
     });
 
-    this.subURL = this.route.url.subscribe((url) => {
+    this.activeURL = this.route.url.subscribe((url) => {
       if (url[0].path === 'login') {
         this.loginMode = true;
       } else {
@@ -77,6 +77,6 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subURL?.unsubscribe();
+    this.activeURL?.unsubscribe();
   }
 }

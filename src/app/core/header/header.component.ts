@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,10 +13,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isCollapsed = true;
   isLoggedIn = false;
   loggedUser?: string;
-  private subNav?: Subscription;
+  private navigate?: Subscription;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.subNav = this.router.events.subscribe((event: Event) => {
+    this.navigate = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         this.isCollapsed = true;
       }
@@ -40,6 +40,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subNav?.unsubscribe();
+    this.navigate?.unsubscribe();
   }
 }

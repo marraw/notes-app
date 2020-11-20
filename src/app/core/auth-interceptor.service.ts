@@ -7,7 +7,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth/auth.service';
 import { exhaustMap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 

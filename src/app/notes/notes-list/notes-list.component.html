@@ -1,5 +1,7 @@
-<div class="row">
+<main class="row">
   <div class="col-xs-12 col-sm-6">
+    <h2>Your notes</h2>
+    <hr />
     <div class="row justify-content-center" *ngIf="isLoading">
       <div appLoadingSpinner></div>
     </div>
@@ -10,18 +12,29 @@
         [@delete]
       ></app-note-details>
     </ul>
-    <div *ngIf="notes.length === 0 && !isLoading">
-      <h6><em>Note list is empty</em></h6>
-      <hr />
-      <button class="btn btn-success" routerLink="../add-note">Add note</button>
+    <div
+      class="row justify-content-center"
+      *ngIf="notes.length === 0 && !isLoading"
+    >
+      <span class="alert empty-list"
+        ><i class="far fa-question-circle"></i>Looks empty... click the button
+        to add a first note!</span
+      >
+      <button class="btn btn-success add-note-btn" routerLink="../add-note">
+        Add note
+      </button>
     </div>
   </div>
 
   <div class="col-xs-12 col-sm-6" *ngIf="notes.length > 0">
-    <h3>Note details</h3>
-    <hr />
-    <router-outlet (activate)="editMode = true" (deactivate)="editMode = false">
-      <h6 *ngIf="editMode === false"><em>Select a note to edit</em></h6>
+    <router-outlet
+      class="row justify-content-center"
+      (activate)="editMode = true"
+      (deactivate)="editMode = false"
+    >
+      <h4 class="select-note" *ngIf="editMode === false">
+        <em>Select a note to edit</em>
+      </h4>
     </router-outlet>
   </div>
-</div>
+</main>

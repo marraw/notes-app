@@ -1,0 +1,16 @@
+.footer-copyright,
+a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.fab {
+  font-size: 25px;
+  margin: auto 0 auto 20px;
+}
+
+.fab:hover {
+  color: #fffacd;
+}

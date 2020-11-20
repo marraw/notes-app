@@ -29,16 +29,16 @@ import { Note } from '../note.model';
       ),
       transition('* => void', [
         animate(
-          100,
+          150,
           style({
-            transform: 'scale(0.75)',
+            transform: 'scale(0.8)',
           })
         ),
         animate(
-          200,
+          350,
           style({
-            opacity: 0,
-            transform: 'translateX(-700px) scale(0.75)',
+            opacity: 0.4,
+            transform: 'translateX(-1500px) scale(0.8)',
           })
         ),
       ]),
@@ -49,9 +49,9 @@ export class NotesListComponent implements OnInit, OnDestroy {
   notes: Note[] = [];
   editMode = false;
   isLoading = true;
-  private subAuth!: Subscription;
-  private subNotesUpdate!: Subscription;
-  private subURL?: Subscription;
+  private auth!: Subscription;
+  private notesUpdate!: Subscription;
+  private activeURL?: Subscription;
 
   constructor(
     private notesService: NotesService,
@@ -62,7 +62,7 @@ export class NotesListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subAuth = this.authService.user.subscribe((user) => {
+    this.auth = this.authService.user.subscribe((user) => {
       if (user?.userToken) {
         this.dataStorageService.getNotesFromServer().subscribe();
       } else {
@@ -71,18 +71,18 @@ export class NotesListComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subNotesUpdate = this.notesService.notesUpdate.subscribe((notes) => {
+    this.notesUpdate = this.notesService.notesUpdate.subscribe((notes) => {
       this.notes = notes;
       if (this.dataStorageService.loggedUser) {
         this.dataStorageService.storeNotesOnServer().subscribe();
       }
       this.isLoading = false;
 
-      this.subURL = this.route.firstChild?.url.subscribe(
+      this.activeURL = this.route.firstChild?.url.subscribe(
         (url: UrlSegment[]) => {
           const noteID = Number(url[0].path);
           if (
-            noteID > this.notes.length ||
+            noteID >= this.notes.length ||
             noteID < 0 ||
             (noteID === 0 && this.notes.length === 0) ||
             Number.isNaN(noteID)
@@ -95,8 +95,8 @@ export class NotesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subAuth.unsubscribe();
-    this.subNotesUpdate.unsubscribe();
-    this.subURL?.unsubscribe();
+    this.auth.unsubscribe();
+    this.notesUpdate.unsubscribe();
+    this.activeURL?.unsubscribe();
   }
 }

@@ -17,7 +17,7 @@
             class="nav-item nav-link"
             routerLink="notes-list"
             routerLinkActive="active"
-            >Notes list</a
+            ><i class="fas fa-stream"></i>Notes list</a
           >
         </li>
         <li class="nav-item">
@@ -25,15 +25,19 @@
             class="nav-item nav-link"
             routerLink="add-note"
             routerLinkActive="active"
-            >Add note</a
+            ><i class="fas fa-plus-circle"></i>Add note</a
           >
         </li>
       </ul>
+      <br />
     </div>
 
-    <div class="collapse navbar-collapse" [appCollapse]="isCollapsed">
+    <div
+      class="collapse navbar-collapse navbar-user"
+      [appCollapse]="isCollapsed"
+    >
       <span
-        class="badge badge-secondary"
+        class="badge badge-secondary username"
         [ngClass]="isCollapsed ? 'badge' : 'collapsed'"
         >{{ loggedUser }}</span
       >
