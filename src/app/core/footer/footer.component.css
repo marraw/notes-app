@@ -3,12 +3,20 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+small,
+i,
+a {
   color: #fff;
+}
+
+a {
+  margin: auto 0 auto 20px;
 }
 
 .fab {
   font-size: 25px;
-  margin: auto 0 auto 20px;
 }
 
 .fab:hover {

@@ -1,0 +1,22 @@
+.container {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+strong {
+  font-size: 50px;
+}
+
+i {
+  font-size: 85px;
+}
+
+.alert {
+  margin-top: 35px;
+  flex-basis: 100%;
+  font-size: 25px;
+}
