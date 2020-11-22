@@ -32,9 +32,9 @@
       (activate)="editMode = true"
       (deactivate)="editMode = false"
     >
-      <h4 class="select-note" *ngIf="editMode === false">
+      <span class="select-note" *ngIf="editMode === false">
         <em>Select a note to edit</em>
-      </h4>
+      </span>
     </router-outlet>
   </div>
 </main>

@@ -4,8 +4,8 @@
     routerLinkActive="activeNote"
     [routerLink]="[id, 'edit']"
   >
-    <h4>{{ note.title }}</h4>
-    <div>{{ note.text | shorten: 240 }}</div>
+    <strong class="note-title">{{ note.title }}</strong>
+    <div class="note-text">{{ note.text | shorten: 240 }}</div>
     <span class="badge badge-warning badge-pill" *ngIf="note.important"
       >Important</span
     >
