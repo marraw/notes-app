@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  PLATFORM_ID,
+  InjectionToken,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 import { AuthService } from './auth/auth.service';
 
@@ -8,13 +15,20 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    @Inject(PLATFORM_ID) private platformID: InjectionToken<Object>
+  ) {}
 
   ngOnInit(): void {
-    this.authService.autoLogIn();
+    if (isPlatformBrowser(this.platformID)) {
+      this.authService.autoLogIn();
+    }
   }
 
   scrollTop(): void {
-    window.scroll(0, 0);
+    if (isPlatformBrowser(this.platformID)) {
+      window.scroll(0, 0);
+    }
   }
 }
