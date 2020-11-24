@@ -11,5 +11,5 @@ There's a few simple _put_ and _get_ requests and also the authentication module
 
 ## Server
 
-Application is deployed by myself, running on a Ubuntu server using PM2, NGINX and UFW.
+Application is deployed by myself, running on Ubuntu server using PM2, NGINX and UFW.
 Thanks to Angular Universal, app is being server side rendered which has a possitive impact on SEO and performance.
