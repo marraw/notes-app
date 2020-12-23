@@ -17,8 +17,8 @@
       *ngIf="notes.length === 0 && !isLoading"
     >
       <span class="alert empty-list"
-        ><i class="far fa-question-circle"></i>Looks empty... click the button
-        to add a first note!</span
+        ><i class="far fa-question-circle" aria-hidden="true"></i>Looks empty...
+        click the button to add a first note!</span
       >
       <button class="btn btn-success add-note-btn" routerLink="../add-note">
         Add note
