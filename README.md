@@ -9,11 +9,6 @@ After a while I started to understand the beauty of well organised Angular frame
 In Notes application I'm using friendly Firebase backend created by Google.
 There are few simple _put_ and _get_ requests as well as the authentication module is being used.
 
-## Server
-
-Application is deployed by myself, running on Ubuntu server using PM2, NGINX and UFW.
-Thanks to Angular Universal, app is being server side rendered which has a possitive impact on SEO and performance.
-
 ## Build
 
 This app is build with Angular Universal as pre-render which improves SEO a lot.
