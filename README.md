@@ -1,6 +1,6 @@
 # Notes app
 
-This is my **first** project created with Angular CLI (version 10.0.8).
+This is my **first** project created with **Angular CLI** (version 10.0.8).
 There's a lot of not-the-best practices but I've learned quite a lot going through this.
 After a while I started to understand the beauty of well organised Angular framework and I'm looking forward to creating something big.
 
@@ -35,7 +35,7 @@ There are few simple `put` and `get` requests as well as the authentication modu
 
 ## Server
 
-App is prerendered with Angular Universal which improves SEO a lot. For a server I'm using [Netlify](https://www.netlify.com/) service.
+App is prerendered with **Angular Universal** which improves **SEO** a lot. For a server I'm using [Netlify](https://www.netlify.com/) service.
 
 ## Layout
 
